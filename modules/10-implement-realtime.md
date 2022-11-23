@@ -15,7 +15,49 @@
 
 # Implement Realtime
 
-TODO!
+1. Ensure [replication is enabled](https://app.supabase.com/project/_/database/replication) for the `messages` table.
+2. Create `<RealtimeMessages />` component.
+
+   ```tsx
+   import { useOutletContext } from "@remix-run/react";
+   import { SupabaseClient } from "@supabase/auth-helpers-remix";
+   import { useEffect, useState } from "react";
+
+   export default function RealtimeMessages({
+     serverMessages,
+   }: {
+     serverMessages: any[];
+   }) {
+     const [messages, setPosts] = useState(serverMessages);
+     const { supabase } = useOutletContext<{ supabase: SupabaseClient }>();
+
+     useEffect(() => {
+       setPosts(serverMessages);
+     }, [serverMessages]);
+
+     useEffect(() => {
+       const channel = supabase
+         .channel("*")
+         .on(
+           "postgres_changes",
+           { event: "INSERT", schema: "public", table: "messages" },
+           (payload) =>
+             setPosts((messages) => [...messages, payload.new as any])
+         )
+         .subscribe();
+
+       return () => {
+         supabase.removeChannel(channel);
+       };
+     }, [serverMessages]);
+
+     return <pre>{JSON.stringify(messages, null, 2)}</pre>;
+   }
+   ```
+
+3. Render `<RealtimeMessages />` component from `app/routes/index.tsx`.
+
+---
 
 [👉 Next lesson](./11-deploy-to-vercel.md)
 

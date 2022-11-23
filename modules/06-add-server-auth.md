@@ -15,7 +15,62 @@
 
 # Add Supabase Auth (server-side)
 
-TODO!
+1. Install `@supabase/auth-helpers-remix`.
+
+   ```bash
+   npm install @supabase/auth-helpers-remix
+   ```
+
+2. Refactor to use `createServerClient` and `createBrowserClient`.
+
+   ```ts
+   // utils/supabase.server.ts
+
+   import { createServerClient } from "@supabase/auth-helpers-remix";
+
+   export default ({
+     request,
+     response,
+   }: {
+     request: Request;
+     response: Response;
+   }) =>
+     createServerClient(
+       process.env.SUPABASE_URL!,
+       process.env.SUPABASE_ANON_KEY!,
+       { request, response }
+     );
+   ```
+
+   ```tsx
+   // app/root.tsx
+
+   export const loader: LoaderFunction = async ({ request }) => {
+     const response = new Response();
+     const supabase = createServerClient({ request, response });
+
+     const {
+       data: { user },
+     } = await supabase.auth.getUser();
+
+     const env = {
+       SUPABASE_URL: process.env.SUPABASE_URL,
+       SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+     };
+
+     return json(
+       {
+         env,
+         user,
+       },
+       {
+         headers: response.headers,
+       }
+     );
+   };
+   ```
+
+---
 
 [👉 Next lesson](./07-authorization-with-rls-policies.md)
 

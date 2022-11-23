@@ -15,7 +15,50 @@
 
 # Mutate Supabase data from Remix
 
-TODO!
+1. Add a `Form` to submit a `message`.
+
+   ```tsx
+   <Form method="post">
+     <input type="text" name="message" placeholder="hello world" />
+     <button type="submit">Send</button>
+   </Form>
+   ```
+
+2. Add an `action` to insert a new `message` into Supabase database.
+
+   ```jsx
+   export const action: ActionFunction = async ({ request }) => {
+     const response = new Response();
+     const supabase = createServerClient({ request, response });
+
+     const { message } = Object.fromEntries(await request.formData());
+
+     const { error } = await supabase
+       .from("messages")
+       .insert({ content: message });
+
+     if (error) {
+       console.log(error);
+     }
+
+     return null;
+   };
+   ```
+
+   > Does this work? Did we forget something? Check the browser console for helpful error.
+
+3. Add an RLS policy for `insert`.
+
+   ```sql
+   create policy "Allow read access to messages for signed in users" on "public"."messages"
+   as permissive on insert
+   to authenticated
+   using (user_id = auth.uid());
+   ```
+
+4. Update default value for `user_id` column to `auth.uid()`.
+
+---
 
 [👉 Next lesson](./10-implement-realtime.md)
 

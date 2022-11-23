@@ -15,8 +15,19 @@
 
 # Wrapping up
 
-TODO!
+We have only scratched the surface of what Supabase can do! Didn't even touch File Storage, Edge Functions, GraphQL, Database Functions, Triggers and Webhooks.
 
----
+## Learn more about Supabase
 
-Enjoyed the course? Follow me on [Twitter](https://twitter.com/jonmeyers_io) and subscribe to my [YouTube channel](https://www.youtube.com/jonmeyers).
+- [YouTube channel](https://www.youtube.com/supabase)
+- [Twitter](https://twitter.com/supabase)
+- [Community Discord](https://discord.supabase.com)
+- [Supabase blog](https://supabase.com/blog)
+- [Supabase docs](https://supabase.com/docs)
+
+## Learn more from me
+
+- [Twitter](https://twitter.com/jonmeyers_io)
+- [YouTube](https://www.youtube.com/jonmeyers)
+- [egghead](https://egghead.io/q/resources-by-jon-meyers)
+- [Level Up Tutorials](https://levelup.video/tutorials/realtime-remix-with-supabase)

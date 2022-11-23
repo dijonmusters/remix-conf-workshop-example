@@ -15,13 +15,13 @@
 
 # Query Supabase Data from Remix
 
-1. Install `@supabase/supabase-js`
+1. Install `@supabase/supabase-js`.
 
    ```bash
-   npm i @supabase/supabase-js
+   npm install @supabase/supabase-js
    ```
 
-2. Add `.env` file with following values
+2. Add `.env` file with following values.
 
    ```
    SUPABASE_URL=your-supabase-url
@@ -30,9 +30,11 @@
 
    > Get these values from [API Settings in your Supabase project's dashboard](https://app.supabase.com/project/_/settings/api).
 
-3. Create Supabase Client util function
+3. Create Supabase Client util function.
 
    ```tsx
+   // utils/supabase.ts
+
    import { createClient } from "@supabase/supabase-js";
 
    export default createClient(
@@ -40,6 +42,40 @@
      process.env.SUPABASE_ANON_KEY!
    );
    ```
+
+4. Query data from Supabase.
+
+   > Check out the [auto-generated docs in your Supabase project's dashboard](https://app.supabase.com/project/_/api).
+
+5. Write RLS policy to allow read access to `messages`.
+
+<details>
+  <summary>Solution</summary>
+
+```tsx
+// app/routes/index.tsx
+
+import { ActionFunction, json, LoaderFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import supabase from "utils/supabase";
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const { data: messages } = await supabase.from("messages").select();
+  return json({ messages });
+};
+
+export default function Index() {
+  const { messages } = useLoaderData();
+  return <pre>{JSON.stringify(messages, null, 2)}</pre>;
+}
+```
+
+```sql
+create policy "Allow read access for messages" on public.messages
+for select using (true);
+```
+
+</details>
 
 ## Optional
 
@@ -62,6 +98,8 @@
      process.env.SUPABASE_ANON_KEY!
    );
    ```
+
+---
 
 [👉 Next lesson](./05-add-client-auth.md)
 

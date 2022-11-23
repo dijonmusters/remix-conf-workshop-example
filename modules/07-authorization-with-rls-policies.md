@@ -15,20 +15,37 @@
 
 # Authorization with RLS Policies
 
+1. Add column for `user_id`. This needs to have a foreign key relationship to the `id` column of the `auth.users` table.
+2. Modify RLS policy to only allow signed in users to read `messages`.
+
+> There is a bug 🐞! Try logging in and out. Then refresh. What is going on here?!?
+
+---
+
 <details>
   <summary>Solution</summary>
-  ```sql
-  drop table messages;
-  create table messages (
-    id uuid default uuid_generate_v4() primary key,
-    created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-    content text,
-    og_image text,
-    status status_options default 'new',
-    user_id uuid references auth.users default auth.uid() not null
-  );
-  ```
+
+```sql
+drop table messages;
+
+create table messages (
+  id uuid default uuid_generate_v4() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  content text,
+  user_id uuid references auth.users default auth.uid() not null
+);
+
+alter table public.messages enable row level security;
+
+create policy "Allow read access to messages for signed in users" on "public"."messages"
+as permissive on select
+to authenticated
+using (true);
+```
+
 </details>
+
+---
 
 [👉 Next lesson](./08-add-supabase-auth-listener.md)
 

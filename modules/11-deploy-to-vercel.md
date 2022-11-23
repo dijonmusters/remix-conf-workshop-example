@@ -15,7 +15,14 @@
 
 # Deploy to Vercel
 
-TODO!
+1. Create GitHub repo
+2. Commit
+3. Push to GitHub
+4. Create project on Vercel
+5. Add environment variables
+6. Update Auth Settings in Supabase dashboard
+
+---
 
 [👉 Next lesson](./12-wrapping-up.md)
 

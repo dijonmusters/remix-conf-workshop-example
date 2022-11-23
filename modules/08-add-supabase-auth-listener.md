@@ -15,7 +15,53 @@
 
 # Add Supabase Auth Listener
 
-TODO!
+1. Add a `<SupabaseAuthListener />` component
+
+   ```tsx
+   import { useFetcher } from "@remix-run/react";
+   import { SupabaseClient } from "@supabase/auth-helpers-remix";
+   import { useEffect } from "react";
+
+   export default function SupabaseListener({
+     accessToken,
+     supabase,
+   }: {
+     accessToken?: string;
+     supabase: SupabaseClient;
+   }) {
+     const fetcher = useFetcher();
+
+     useEffect(() => {
+       supabase.auth.onAuthStateChange((event, session) => {
+         if (session?.access_token !== accessToken) {
+           fetcher.submit(null, { method: "post", action: "/handle-auth" });
+         }
+       });
+     }, [accessToken]);
+
+     return null;
+   }
+   ```
+
+2. Create an action at `app/routes/handle-auth.tsx`.
+
+   ```tsx
+   export const action = () => {
+     return null;
+   };
+   ```
+
+3. Render above `<Outlet />` in `app/root.tsx`.
+
+   ```tsx
+   <SupabaseListener
+     supabase={supabase}
+     accessToken={session?.access_token}
+   />
+   <Outlet context={{ supabase, session }} />
+   ```
+
+---
 
 [👉 Next lesson](./09-mutate-supabase-data-from-remix.md)
 

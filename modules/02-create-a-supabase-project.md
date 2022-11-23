@@ -42,6 +42,8 @@ insert into messages(content)
 values
   ('Hello'),
   ('Does this work?');
+
+alter table public.messages enable row level security;
 ```
 
 </details>

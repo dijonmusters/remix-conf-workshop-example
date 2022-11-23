@@ -41,6 +41,8 @@ Caveats:
 
 Should we do JS or TS? Vote in `Building a Realtime App with Remix and Supabase Workshop` sub-channel of #remix-workshops in Discord.
 
+---
+
 [👉 Next lesson](./02-create-a-supabase-project.md)
 
 ---

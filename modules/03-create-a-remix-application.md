@@ -25,6 +25,8 @@
 
 2. [Configure Tailwind](https://tailwindcss.com/docs/guides/remix).
 
+---
+
 [👉 Next lesson](./04-query-supabase-data-from-remix.md)
 
 ---
