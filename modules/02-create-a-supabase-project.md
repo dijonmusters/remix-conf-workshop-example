@@ -15,7 +15,38 @@
 
 # Create a Supabase Project
 
-TODO!
+1. Head over to [Database.new](https://database.new) and create a new Supabase project.
+2. Create a new table for `messages` with the following structure:
+
+   ```
+   id: uuid
+   created_at: timestamp
+   content: text
+   ```
+
+3. Add some example messages
+
+---
+
+<details>
+  <summary>Solution</summary>
+
+```sql
+create table if not exists messages (
+  id uuid default uuid_generate_v4() primary key,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  content text
+);
+
+insert into messages(content)
+values
+  ('Hello'),
+  ('Does this work?');
+```
+
+</details>
+
+---
 
 [👉 Next lesson](./03-create-a-remix-application.md)
 

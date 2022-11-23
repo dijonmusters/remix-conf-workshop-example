@@ -15,7 +15,15 @@
 
 # Create a Remix Application
 
-TODO!
+1. Create a Remix application using Vercel template.
+
+   ```bash
+   npx create-remix remix-conf-example
+   ```
+
+## Optional
+
+2. [Configure Tailwind](https://tailwindcss.com/docs/guides/remix).
 
 [👉 Next lesson](./04-query-supabase-data-from-remix.md)
 

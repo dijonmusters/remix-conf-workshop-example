@@ -15,10 +15,27 @@
 
 # Authorization with RLS Policies
 
-TODO!
+<details>
+  <summary>Solution</summary>
+  ```sql
+  drop table messages;
+  create table messages (
+    id uuid default uuid_generate_v4() primary key,
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+    content text,
+    og_image text,
+    status status_options default 'new',
+    user_id uuid references auth.users default auth.uid() not null
+  );
+  ```
+</details>
 
 [👉 Next lesson](./08-add-supabase-auth-listener.md)
 
 ---
 
 Enjoyed the course? Follow me on [Twitter](https://twitter.com/jonmeyers_io) and subscribe to my [YouTube channel](https://www.youtube.com/jonmeyers).
+
+```
+
+```

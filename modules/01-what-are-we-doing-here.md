@@ -15,7 +15,31 @@
 
 # What are we doing here?
 
-TODO!
+## Supabase
+
+[Supabase](https://database.new) is a collection of open-source tools that wrap around a PostgreSQL database.
+
+It handles hosting a database, auth, file storage, realtime, edge functions, database functions, triggers and webhooks - lots of ways to build apps and automate backend stuff.
+
+## Remix
+
+[Remix](https://remix.run) is a web framework that gives you sprinkles of server when you need it.
+
+## Structure
+
+This workshop is broken up into [12 modules](../README.md), covering creating a Supabase and Remix app from scratch, authentication, authorization, realtime and deployment. We'll see how far we get in two hours 👍
+
+Ask questions throughout! Raise your hand - it is fine to interrupt me at any point! Post questions in the Discord and I will try to remember to answer them in between modules.
+
+Caveats:
+
+- first time teaching this workshop
+- contains lots of new stuff
+- is likely to break as Remix does
+- it is late so my brain may be slooooooow 🧠
+- spent too long building this awesome repo 🚀
+
+Should we do JS or TS? Vote in `Building a Realtime App with Remix and Supabase Workshop` sub-channel of #remix-workshops in Discord.
 
 [👉 Next lesson](./02-create-a-supabase-project.md)
 

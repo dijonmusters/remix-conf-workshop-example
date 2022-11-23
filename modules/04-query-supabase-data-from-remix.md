@@ -15,7 +15,53 @@
 
 # Query Supabase Data from Remix
 
-TODO!
+1. Install `@supabase/supabase-js`
+
+   ```bash
+   npm i @supabase/supabase-js
+   ```
+
+2. Add `.env` file with following values
+
+   ```
+   SUPABASE_URL=your-supabase-url
+   SUPABASE_ANON_KEY=your-supabase-anon-key
+   ```
+
+   > Get these values from [API Settings in your Supabase project's dashboard](https://app.supabase.com/project/_/settings/api).
+
+3. Create Supabase Client util function
+
+   ```tsx
+   import { createClient } from "@supabase/supabase-js";
+
+   export default createClient(
+     process.env.SUPABASE_URL!,
+     process.env.SUPABASE_ANON_KEY!
+   );
+   ```
+
+## Optional
+
+4. Add types
+
+   Types can be generated from the [Supabase CLI](https://supabase.com/docs/reference/cli).
+
+   ```bash
+   supabase gen types typescript --project-id your-project-ref >> db_types.ts
+   ```
+
+   > This will need to be run any time you make changes to your Supabase schema
+
+   ```tsx
+   import { createClient } from "@supabase/supabase-js";
+   import { Database } from "db_types";
+
+   export default createClient<Database>(
+     process.env.SUPABASE_URL!,
+     process.env.SUPABASE_ANON_KEY!
+   );
+   ```
 
 [👉 Next lesson](./05-add-client-auth.md)
 
