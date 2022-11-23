@@ -8,10 +8,19 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import Login from "components/login";
 import createServerClient from "utils/supabase.server";
-import { createBrowserClient } from "@supabase/auth-helpers-remix";
+import {
+  createBrowserClient,
+  Session,
+  SupabaseClient,
+} from "@supabase/auth-helpers-remix";
 import SupabaseListener from "components/supabase-listener";
+import { Database } from "db_types";
+
+export type SupabaseOutletContext = {
+  supabase: SupabaseClient<Database>;
+  session: Session;
+};
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -46,7 +55,10 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function App() {
   const { env, session } = useLoaderData();
 
-  const supabase = createBrowserClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+  const supabase = createBrowserClient<Database>(
+    env.SUPABASE_URL,
+    env.SUPABASE_ANON_KEY
+  );
 
   return (
     <html lang="en">
@@ -55,12 +67,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Login supabase={supabase} user={session?.user} />
         <SupabaseListener
           supabase={supabase}
           accessToken={session?.access_token}
         />
-        <Outlet context={{ supabase }} />
+        <Outlet context={{ supabase, session }} />
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

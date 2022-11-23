@@ -1,14 +1,17 @@
 import { useOutletContext } from "@remix-run/react";
-import { SupabaseClient } from "@supabase/auth-helpers-remix";
 import { useEffect, useState } from "react";
+import { SupabaseOutletContext } from "~/root";
+import { Database } from "db_types";
+
+type Message = Database["public"]["Tables"]["messages"]["Row"];
 
 export default function RealtimeMessages({
   serverMessages,
 }: {
-  serverMessages: any[];
+  serverMessages: Message[];
 }) {
   const [messages, setPosts] = useState(serverMessages);
-  const { supabase } = useOutletContext<{ supabase: SupabaseClient }>();
+  const { supabase } = useOutletContext<SupabaseOutletContext>();
 
   useEffect(() => {
     setPosts(serverMessages);
@@ -20,7 +23,8 @@ export default function RealtimeMessages({
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
-        (payload) => setPosts((messages) => [...messages, payload.new as any])
+        (payload) =>
+          setPosts((messages) => [...messages, payload.new as Message])
       )
       .subscribe();
 

@@ -1,7 +1,11 @@
 import { ActionFunction, json, LoaderFunction } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
+import Login from "components/login";
 import RealtimeMessages from "components/realtime-messages";
 import createServerClient from "utils/supabase.server";
+import { Database } from "db_types";
+
+type Message = Database["public"]["Tables"]["messages"]["Row"];
 
 export const action: ActionFunction = async ({ request }) => {
   const response = new Response();
@@ -11,7 +15,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   const { error } = await supabase
     .from("messages")
-    .insert({ content: message });
+    .insert({ content: String(message) });
 
   if (error) {
     console.log(error);
@@ -24,17 +28,18 @@ export const loader: LoaderFunction = async ({ request }) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
 
-  const { data } = await supabase.from("messages").select();
+  const { data: messages } = await supabase.from("messages").select();
 
-  return json({ data }, { headers: response.headers });
+  return json({ messages }, { headers: response.headers });
 };
 
 export default function Index() {
-  const { data } = useLoaderData();
+  const { messages } = useLoaderData<{ messages: Message[] }>();
 
   return (
     <>
-      <RealtimeMessages serverMessages={data} />
+      <Login />
+      <RealtimeMessages serverMessages={messages} />
       <Form method="post">
         <input type="text" name="message" placeholder="hello world" />
         <button type="submit">Send</button>

@@ -1,12 +1,9 @@
-import { SupabaseClient, User } from "@supabase/supabase-js";
+import { useOutletContext } from "@remix-run/react";
+import { SupabaseOutletContext } from "~/root";
 
-export default function Login({
-  supabase,
-  user,
-}: {
-  supabase: SupabaseClient;
-  user: User;
-}) {
+export default function Login() {
+  const { supabase, session } = useOutletContext<SupabaseOutletContext>();
+
   const handleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "github",
@@ -25,7 +22,7 @@ export default function Login({
     }
   };
 
-  return !!user ? (
+  return !!session?.user ? (
     <button onClick={handleLogout}>Logout</button>
   ) : (
     <button onClick={handleLogin}>Login</button>
