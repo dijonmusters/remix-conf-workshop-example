@@ -1,34 +1,16 @@
-# Welcome to Remix!
+# Building a Realtime App with Remix and Supabase Workshop
 
-- [Remix Docs](https://remix.run/docs)
+## Modules
 
-## Deployment
-
-After having run the `create-remix` command and selected "Vercel" as a deployment target, you only need to [import your Git repository](https://vercel.com/new) into Vercel, and it will be deployed.
-
-If you'd like to avoid using a Git repository, you can also deploy the directory by running [Vercel CLI](https://vercel.com/cli):
-
-```sh
-npm i -g vercel
-vercel
-```
-
-It is generally recommended to use a Git repository, because future commits will then automatically be deployed by Vercel, through its [Git Integration](https://vercel.com/docs/concepts/git).
-
-## Development
-
-To run your Remix app locally, make sure your project's local dependencies are installed:
-
-```sh
-npm install
-```
-
-Afterwards, start the Remix development server like so:
-
-```sh
-npm run dev
-```
-
-Open up [http://localhost:3000](http://localhost:3000) and you should be ready to go!
-
-If you're used to using the `vercel dev` command provided by [Vercel CLI](https://vercel.com/cli) instead, you can also use that, but it's not needed.
+1. [What are we doing here?](./modules/01-what-are-we-doing-here.md)
+2. [Create a Supabase Project](./modules/02-create-a-supabase-project.md)
+3. [Create a Remix Application](./modules/03-create-a-remix-application.md)
+4. [Query Supabase Data from Remix](./modules/04-query-supabase-data-from-remix.md)
+5. [Add Supabase Auth (client-side)](./modules/05-add-client-auth.md)
+6. [Add Supabase Auth (server-side)](./modules/06-add-server-auth.md)
+7. [Authorization with RLS Policies](./modules/07-authorization-with-rls-policies.md)
+8. [Add Supabase Auth Listener](./modules/08-add-supabase-auth-listener.md)
+9. [Mutate Supabase Data from Remix](./modules/09-mutate-supabase-data-from-remix.md)
+10. [Implement Realtime](./modules/10-implement-realtime.md)
+11. [Deploy to Vercel](./modules/11-deploy-to-vercel.md)
+12. [Wrapping up](./modules/12-wrapping-up.md)
