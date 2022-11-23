@@ -1,5 +1,7 @@
 [🏡 Home](../README.md)
 
+<progress value="9" max="12" />
+
 # Mutate Supabase data from Remix
 
 TODO!

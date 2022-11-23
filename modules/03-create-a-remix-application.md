@@ -1,5 +1,7 @@
 [🏡 Home](../README.md)
 
+<progress value="3" max="12" />
+
 # Create a Remix Application
 
 TODO!

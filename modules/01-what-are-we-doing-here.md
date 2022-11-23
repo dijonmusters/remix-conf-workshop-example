@@ -1,5 +1,7 @@
 [🏡 Home](../README.md)
 
+<progress value="1" max="12" />
+
 # What are we doing here?
 
 TODO!

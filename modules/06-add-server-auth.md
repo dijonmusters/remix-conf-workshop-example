@@ -1,5 +1,7 @@
 [🏡 Home](../README.md)
 
+<progress value="6" max="12" />
+
 # Add Supabase Auth (server-side)
 
 TODO!

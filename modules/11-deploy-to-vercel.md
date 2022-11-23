@@ -1,5 +1,7 @@
 [🏡 Home](../README.md)
 
+<progress value="11" max="12" />
+
 # Deploy to Vercel
 
 TODO!

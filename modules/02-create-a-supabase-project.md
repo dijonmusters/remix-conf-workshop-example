@@ -1,5 +1,7 @@
 [🏡 Home](../README.md)
 
+<progress value="2" max="12" />
+
 # Create a Supabase Project
 
 TODO!

@@ -1,5 +1,7 @@
 [🏡 Home](../README.md)
 
+<progress value="8" max="12" />
+
 # Add Supabase Auth Listener
 
 TODO!
