@@ -55,17 +55,17 @@
 ```tsx
 // app/routes/index.tsx
 
-import { ActionFunction, json, LoaderFunction } from "@remix-run/node";
+import { json, LoaderArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import supabase from "utils/supabase";
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request }: LoaderArgs) => {
   const { data: messages } = await supabase.from("messages").select();
   return json({ messages });
 };
 
 export default function Index() {
-  const { messages } = useLoaderData();
+  const { messages } = useLoaderData<typeof loader>();
   return <pre>{JSON.stringify(messages, null, 2)}</pre>;
 }
 ```

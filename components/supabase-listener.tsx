@@ -1,5 +1,5 @@
 import { useFetcher } from "@remix-run/react";
-import { SupabaseClient } from "@supabase/auth-helpers-remix";
+import type { SupabaseClient } from "@supabase/auth-helpers-remix";
 import { useEffect } from "react";
 
 export default function SupabaseListener({

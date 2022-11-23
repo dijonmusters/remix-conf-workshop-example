@@ -1,7 +1,7 @@
 import { useOutletContext } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { SupabaseOutletContext } from "~/root";
-import { Database } from "db_types";
+import type { SupabaseOutletContext } from "~/root";
+import type { Database } from "db_types";
 
 type Message = Database["public"]["Tables"]["messages"]["Row"];
 
@@ -31,7 +31,7 @@ export default function RealtimeMessages({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [serverMessages]);
+  }, [serverMessages, supabase]);
 
   return <pre>{JSON.stringify(messages, null, 2)}</pre>;
 }

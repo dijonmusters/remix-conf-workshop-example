@@ -59,13 +59,13 @@
 
    ```tsx
    // app/root.tsx
-
+   import { json, LoaderArgs } from "@remix-run/node";
    import Login from "components/login.tsx";
 
-   export const loader: LoaderFunction = async () => {
+   export const loader = async ({}: LoaderArgs) => {
      const env = {
-       SUPABASE_URL: process.env.SUPABASE_URL,
-       SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+       SUPABASE_URL: process.env.SUPABASE_URL!,
+       SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY!,
      };
 
      return {
@@ -74,7 +74,7 @@
    };
 
    export default function App() {
-     const { env } = useLoaderData();
+     const { env } = useLoaderData<typeof loader>();
 
      const supabase = createBrowserClient<Database>(
        env.SUPABASE_URL,

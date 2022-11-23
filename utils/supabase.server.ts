@@ -1,5 +1,5 @@
 import { createServerClient } from "@supabase/auth-helpers-remix";
-import { Database } from "db_types";
+import type { Database } from "db_types";
 
 export default ({
   request,

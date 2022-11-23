@@ -27,7 +27,7 @@
 2. Add an `action` to insert a new `message` into Supabase database.
 
    ```jsx
-   export const action: ActionFunction = async ({ request }) => {
+   export const action = async ({ request }: ActionArgs) => {
      const response = new Response();
      const supabase = createServerClient({ request, response });
 

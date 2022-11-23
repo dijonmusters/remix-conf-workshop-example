@@ -45,7 +45,7 @@
    ```tsx
    // app/root.tsx
 
-   export const loader: LoaderFunction = async ({ request }) => {
+   export const loader = async ({ request }: LoaderArgs) => {
      const response = new Response();
      const supabase = createServerClient({ request, response });
 
