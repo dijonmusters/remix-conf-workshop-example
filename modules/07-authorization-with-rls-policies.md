@@ -1,7 +1,5 @@
 [🏡 Home](../README.md)
 
-<progress value="7" max="12" />
-
 # Authorization with RLS Policies
 
 TODO!

@@ -1,7 +1,5 @@
 [🏡 Home](../README.md)
 
-<progress value="12" max="12" />
-
 # Wrapping up
 
 TODO!

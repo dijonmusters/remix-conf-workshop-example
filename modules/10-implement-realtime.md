@@ -1,7 +1,5 @@
 [🏡 Home](../README.md)
 
-<progress value="10" max="12" />
-
 # Implement Realtime
 
 TODO!

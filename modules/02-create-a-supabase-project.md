@@ -1,6 +1,17 @@
 [🏡 Home](../README.md)
 
-<progress value="2" max="12" />
+![#c5f015](https://placehold.co/15x15/c5f015/c5f015.png)
+![#c5f015](https://placehold.co/15x15/c5f015/c5f015.png)
+![#c5f015](https://placehold.co/15x15/000000/000000.png)
+![#000000](https://placehold.co/15x15/000000/000000.png)
+![#000000](https://placehold.co/15x15/000000/000000.png)
+![#000000](https://placehold.co/15x15/000000/000000.png)
+![#000000](https://placehold.co/15x15/000000/000000.png)
+![#000000](https://placehold.co/15x15/000000/000000.png)
+![#000000](https://placehold.co/15x15/000000/000000.png)
+![#000000](https://placehold.co/15x15/000000/000000.png)
+![#000000](https://placehold.co/15x15/000000/000000.png)
+![#000000](https://placehold.co/15x15/000000/000000.png)
 
 # Create a Supabase Project
 

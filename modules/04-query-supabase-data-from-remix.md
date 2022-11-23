@@ -1,7 +1,5 @@
 [🏡 Home](../README.md)
 
-<progress value="4" max="12" />
-
 # Query Supabase Data from Remix
 
 TODO!
