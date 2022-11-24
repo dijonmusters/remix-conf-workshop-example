@@ -1,4 +1,5 @@
-import { json, LoaderFunction, MetaFunction } from "@remix-run/node";
+import type { LoaderArgs, MetaFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -9,13 +10,14 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import createServerClient from "utils/supabase.server";
-import {
-  createBrowserClient,
+import type {
   Session,
-  SupabaseClient,
+  SupabaseClient} from "@supabase/auth-helpers-remix";
+import {
+  createBrowserClient
 } from "@supabase/auth-helpers-remix";
 import SupabaseListener from "components/supabase-listener";
-import { Database } from "db_types";
+import type { Database } from "db_types";
 
 export type SupabaseOutletContext = {
   supabase: SupabaseClient<Database>;
@@ -28,7 +30,7 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request }: LoaderArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
 
@@ -37,8 +39,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   } = await supabase.auth.getSession();
 
   const env = {
-    SUPABASE_URL: process.env.SUPABASE_URL,
-    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+    SUPABASE_URL: process.env.SUPABASE_URL!,
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY!,
   };
 
   return json(
@@ -53,7 +55,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export default function App() {
-  const { env, session } = useLoaderData();
+  const { env, session } = useLoaderData<typeof loader>();
 
   const supabase = createBrowserClient<Database>(
     env.SUPABASE_URL,

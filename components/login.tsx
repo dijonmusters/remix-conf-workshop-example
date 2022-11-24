@@ -1,5 +1,5 @@
 import { useOutletContext } from "@remix-run/react";
-import { SupabaseOutletContext } from "~/root";
+import type { SupabaseOutletContext } from "~/root";
 
 export default function Login() {
   const { supabase, session } = useOutletContext<SupabaseOutletContext>();
@@ -22,7 +22,7 @@ export default function Login() {
     }
   };
 
-  return !!session?.user ? (
+  return session?.user ? (
     <button onClick={handleLogout}>Logout</button>
   ) : (
     <button onClick={handleLogin}>Login</button>
