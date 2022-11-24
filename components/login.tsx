@@ -1,4 +1,5 @@
 import { useOutletContext } from "@remix-run/react";
+
 import type { SupabaseOutletContext } from "~/root";
 
 export default function Login() {

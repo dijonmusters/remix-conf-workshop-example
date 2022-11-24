@@ -1,4 +1,3 @@
-import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import {
   Links,
@@ -10,13 +9,12 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 import createServerClient from "utils/supabase.server";
-import type {
-  Session,
-  SupabaseClient} from "@supabase/auth-helpers-remix";
-import {
-  createBrowserClient
-} from "@supabase/auth-helpers-remix";
-import SupabaseListener from "components/supabase-listener";
+import { createBrowserClient } from "@supabase/auth-helpers-remix";
+import SupabaseAuthListener from "components/supabase-auth-listener";
+import { useState } from "react";
+
+import type { LoaderArgs, MetaFunction } from "@remix-run/node";
+import type { Session, SupabaseClient } from "@supabase/auth-helpers-remix";
 import type { Database } from "db_types";
 
 export type SupabaseOutletContext = {
@@ -57,9 +55,8 @@ export const loader = async ({ request }: LoaderArgs) => {
 export default function App() {
   const { env, session } = useLoaderData<typeof loader>();
 
-  const supabase = createBrowserClient<Database>(
-    env.SUPABASE_URL,
-    env.SUPABASE_ANON_KEY
+  const [supabase] = useState(() =>
+    createBrowserClient<Database>(env.SUPABASE_URL, env.SUPABASE_ANON_KEY)
   );
 
   return (
@@ -69,7 +66,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <SupabaseListener
+        <SupabaseAuthListener
           supabase={supabase}
           accessToken={session?.access_token}
         />
