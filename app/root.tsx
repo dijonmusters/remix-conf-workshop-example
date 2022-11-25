@@ -8,7 +8,7 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import createServerClient from "utils/supabase.server";
+import { createServerClient } from "utils/supabase.server";
 import { createBrowserClient } from "@supabase/auth-helpers-remix";
 import SupabaseAuthListener from "components/supabase-auth-listener";
 import { useState } from "react";
@@ -17,8 +17,10 @@ import type { LoaderArgs, MetaFunction } from "@remix-run/node";
 import type { Session, SupabaseClient } from "@supabase/auth-helpers-remix";
 import type { Database } from "db_types";
 
+export type TypedSupabaseClient = SupabaseClient<Database>;
+
 export type SupabaseOutletContext = {
-  supabase: SupabaseClient<Database>;
+  supabase: TypedSupabaseClient;
   session: Session;
 };
 

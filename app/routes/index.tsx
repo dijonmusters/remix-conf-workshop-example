@@ -1,16 +1,14 @@
 import { json } from "@remix-run/node";
-import { Form, useLoaderData, useOutletContext } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import Login from "components/login";
 import RealtimeMessages from "components/realtime-messages";
-import createServerClient from "utils/supabase.server";
+import { createServerClient } from "utils/supabase.server";
 
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import type { SupabaseOutletContext } from "~/root";
 
 export const action = async ({ request }: ActionArgs) => {
   const response = new Response();
   const supabase = createServerClient({ request, response });
-
   const { message } = Object.fromEntries(await request.formData());
 
   const { error } = await supabase
@@ -34,21 +32,12 @@ export const loader = async ({ request }: LoaderArgs) => {
 };
 
 export default function Index() {
-  const { session } = useOutletContext<SupabaseOutletContext>();
   const { messages } = useLoaderData<typeof loader>();
 
   return (
     <>
       <Login />
-      {session?.user ? (
-        <>
-          <RealtimeMessages serverMessages={messages} />
-          <Form method="post">
-            <input type="text" name="message" placeholder="hello world" />
-            <button type="submit">Send</button>
-          </Form>
-        </>
-      ) : null}
+      <RealtimeMessages serverMessages={messages} />
     </>
   );
 }

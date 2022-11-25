@@ -1,19 +1,21 @@
 import { useFetcher } from "@remix-run/react";
 import { useEffect } from "react";
 
-import type { SupabaseClient } from "@supabase/auth-helpers-remix";
+import type { TypedSupabaseClient } from "~/root";
 
 export default function SupabaseAuthListener({
   accessToken,
   supabase,
 }: {
   accessToken?: string;
-  supabase: SupabaseClient;
+  supabase: TypedSupabaseClient;
 }) {
   const fetcher = useFetcher();
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange((event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.access_token !== accessToken) {
         fetcher.submit(null, {
           method: "post",
@@ -21,6 +23,10 @@ export default function SupabaseAuthListener({
         });
       }
     });
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [accessToken]);
 
   return null;

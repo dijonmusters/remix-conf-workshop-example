@@ -1,4 +1,4 @@
-import { useOutletContext } from "@remix-run/react";
+import { Form, useOutletContext } from "@remix-run/react";
 import { useEffect, useState } from "react";
 
 import type { SupabaseOutletContext } from "~/root";
@@ -11,11 +11,11 @@ export default function RealtimeMessages({
 }: {
   serverMessages: Message[];
 }) {
-  const [messages, setPosts] = useState(serverMessages);
-  const { supabase } = useOutletContext<SupabaseOutletContext>();
+  const [messages, setMessages] = useState(serverMessages);
+  const { supabase, session } = useOutletContext<SupabaseOutletContext>();
 
   useEffect(() => {
-    setPosts(serverMessages);
+    setMessages(serverMessages);
   }, [serverMessages]);
 
   useEffect(() => {
@@ -24,15 +24,28 @@ export default function RealtimeMessages({
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
-        (payload) =>
-          setPosts((messages) => [...messages, payload.new as Message])
+        (payload) => {
+          const newMessage = payload.new as Message;
+
+          if (!messages.find((message) => message.id === newMessage.id)) {
+            setMessages([...messages, newMessage]);
+          }
+        }
       )
       .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [serverMessages, supabase]);
+  }, [messages, supabase]);
 
-  return <pre>{JSON.stringify(messages, null, 2)}</pre>;
+  return session?.user ? (
+    <>
+      <pre>{JSON.stringify(messages, null, 2)}</pre>
+      <Form method="post" action="/?index">
+        <input type="text" name="message" placeholder="hello world" />
+        <button type="submit">Send</button>
+      </Form>
+    </>
+  ) : null;
 }
